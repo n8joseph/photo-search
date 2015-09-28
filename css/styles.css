@@ -1,0 +1,17 @@
+.topsection {
+	margin-top: 6em;
+}
+
+.topsection h1 {
+	font-weight: 700;
+	font-size: 72px;
+}
+
+.sButton {
+	background-color:rgba(255,167,6,0.75);
+	font-weight: 500;
+}
+
+.sButton:hover {
+	background-color:rgba(255,167,6,1);
+}
