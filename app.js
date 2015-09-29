@@ -21,7 +21,7 @@ angular.module('MyApp', [])
 			var request = {
 				callback: 'JSON_CALLBACK',
 				client_id: '541fd0be5de2463aa359f64e029722cd',
-				count: 8
+				count: 9
 			};
 
 			$http({
@@ -31,7 +31,7 @@ angular.module('MyApp', [])
 			})
 			.then(function(response) {
 				console.log('success!')
-				$scope.results = response.data.data[0].images.standard_resolution.url
+				$scope.results = response.data.data
 				console.log(response)
 			},
 			function(response) {
@@ -41,3 +41,5 @@ angular.module('MyApp', [])
 
 
 });
+
+	/* $scope.results = response.data.data[0].images.standard_resolution.url */

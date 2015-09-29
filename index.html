@@ -26,9 +26,7 @@
 
       <div class="container bottomsection">
         <div class="row">
-          <div class="col-md-4"><img src="{{ results }}"></div>
-          <div class="col-md-4"><img src="{{ results }}"></div>
-          <div class="col-md-4"><img src="{{ results }}"></div>
+          <div class="col-md-4 col-sm-6 text-center" ng-repeat="result in results"><a href="{{ result.link }}"><img src="{{ result.images.standard_resolution.url }}"></a></div>
         </div>
       </div>
 
