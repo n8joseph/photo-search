@@ -15,3 +15,12 @@
 .sButton:hover {
 	background-color:rgba(255,167,6,1);
 }
+
+.bottomsection {
+	margin-top: 80px;
+}
+
+.bottomsection img {
+	width: 300px;
+	height: 300px;
+}
