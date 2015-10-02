@@ -4,42 +4,63 @@ angular.module('MyApp', [])
 	.config(function($httpProvider) {
 		$httpProvider.defaults.useXDomain = true;
 	})
-	.controller('MyController', function($scope, $http, $sce) {
-	
-		$scope.embedUrl = "ENTER HERE";
-
-		$scope.trustSrc = function(src) {
-			return $sce.trustAsResource(src);
-		};
-
-		$scope.searchInstagram = function(keyword) {
-			
-			$scope.keyword = $scope.searchForm.keyword.$viewvalue;
-
-			var url = "https://api.instagram.com/v1/tags/" + keyword + "/media/recent";
-
-			var request = {
-				callback: 'JSON_CALLBACK',
-				client_id: '541fd0be5de2463aa359f64e029722cd',
-				count: 9
-			};
-
-			$http({
+	.factory('someFactory', function($http) {
+		return {someMeth: function(url, request, $scope) {
+			return $http({
 				method: 'JSONP',
 				url: url,
 				params: request
-			})
-			.then(function(response) {
-				console.log('success!')
-				$scope.results = response.data.data
-				console.log(response)
-			},
-			function(response) {
-				alert('error')
-			})
+				}).then(function(response) {
+					$scope.results = response.data.data;
+					$scope.loading = false;
+					return 'hello there'
+				},
+				function(response) {
+					$scope.error = true;
+					$scope.loading = false;
+				})
+		}};
+	})
+	.controller('MyController', function($scope, $http, $q, $timeout, someFactory) {
+		
+		function wait() {
+			var defer = $q.defer();
+			$timeout(function(){
+				defer.resolve();
+			}, 750);
+			return defer.promise;
+		}
+
+		
+
+		$scope.searchInstagram = function(keyword) {
+			
+			$scope.loading = true;
+			$scope.error = false;
+			$scope.errorMsg = "Oops. Try again please.";
+			$scope.complete = false;
+
+			wait().then(function() {
+
+				$scope.keyword = $scope.searchForm.keyword.$viewvalue;
+
+				var url = "https://api.instagram.com/v1/tags/" + keyword + "/media/recent";
+
+				var request = {
+					callback: 'JSON_CALLBACK',
+					client_id: '541fd0be5de2463aa359f64e029722cd',
+					count: 12
+				};
+				
+				someFactory.someMeth(url, request, $scope)
+					.then(function(obj1) {
+						$scope.complete = true;
+					}, function() {})
+
+			}, function() {
+				$scope.loading = false;
+				$scope.error = true})
 	};
 
 
 });
-
-	/* $scope.results = response.data.data[0].images.standard_resolution.url */

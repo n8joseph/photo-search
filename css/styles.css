@@ -30,3 +30,20 @@
 .bottomsection img:hover {
 	opacity: 0.8;
 }
+
+#iload {
+	margin-top: 42px;
+	margin-bottom: -28px;
+	font-size: 24px;
+	color: #3385FF;
+}
+
+#iloadInv {
+	margin-top: 42px;
+	margin-bottom: -28px;
+	font-size: 24px;
+	opacity: 0;
+}
+
+[ng:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak { display: none !important; }
+
